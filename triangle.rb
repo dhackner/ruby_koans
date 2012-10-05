@@ -15,12 +15,21 @@
 #
 def triangle(a, b, c)
   valid? a, b, c
-  if a == b and b == c
-    return :equilateral
-  elsif a == b or b == c or a == c
-    return :isosceles
-  else
-    return :scalene
+
+  # My solution:
+#  if a == b and b == c
+#    return :equilateral
+#  elsif a == b or b == c or a == c
+#    return :isosceles
+#  else
+#    return :scalene
+#  end
+
+  # Slicker solution provided by http://stackoverflow.com/a/4742761/208457
+  case [a,b,c].uniq.size
+    when 1 then :equilateral
+    when 2 then :isosceles
+    else        :scalene
   end
 end
 
