@@ -31,6 +31,20 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
 def score(dice)
   # You need to write this method
+
+  # Generage # occurences for each number
+  occurences = dice.inject(Hash.new(0)) { |hit_list, this_roll| hit_list[this_roll] += 1; hit_list }
+
+  total = 0
+  occurences.each do |k,v|
+    if v>=3
+      occurences[k] -= 3 # Consume the set of 3
+      # A set of 3 1's == 1000, any other set is worth 100 times the number
+      total += (k==1 ? 1000 : k*100)
+    end
+  end
+  # Remaining 1's are worth 100 and remaining 5's are worth 50
+  total += occurences[1] * 100 + occurences[5] * 50
 end
 
 class AboutScoringProject < EdgeCase::Koan
